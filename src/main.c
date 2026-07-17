@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Inbuild functions arguments 
+// Inbuild functions arguments
 int kraw_cd(char **args);
 int kraw_help(char **args);
 int kraw_exit(char **args);
@@ -13,20 +13,18 @@ int kraw_exit(char **args);
 char *inbuild_str[] = {
     "cd"
     "help"
-    "exit"
-};
+    "exit"};
 
-int (*inbuild_func[]) (char **) =
+int (*inbuild_func[])(char **) =
+    {
+        &kraw_cd,
+        &kraw_exit,
+        &kraw_help};
+
+int kraw_no_inbuild()
 {
-    &kraw_cd,
-    &kraw_exit,
-    &kraw_help
-};
-
-int kraw_no_inbuild() {
-  return sizeof(inbuild_str) / sizeof(char *);
+    return sizeof(inbuild_str) / sizeof(char *);
 }
-
 
 void kraw_loop(void)
 {
@@ -34,7 +32,8 @@ void kraw_loop(void)
     char **args;
     int status;
     // This is the important section cuz it init the whole user input thing; imp !!
-    do{
+    do
+    {
         printf(">⩊<.ᐟ ");
         line = kraw_read_line();
         args = kraw_split_line(line);
@@ -44,13 +43,57 @@ void kraw_loop(void)
         free(args);
     } while (status);
 
- printf("I am a fool");
+    printf("I am a fool");
 }
 
+#define KRAW_RL_BUFSIZE 1024
+char *kraw_read_line(void)
+{
+    int bufsize = KRAW_RL_BUFSIZE;
+    int position = 0;
+    char *buffer = malloc(sizeof(char) * bufsize);
+    int c;
+
+    if (!buffer)
+    {
+        fprintf(stderr, "kraw: allocation error\n");
+        exit(EXIT_FAILURE);
+    }
+
+    while (1)
+    {
+        // Read a character
+        c = getchar();
+
+        // If we hit EOF, replace it with a null character and return.
+        if (c == EOF || c == '\n')
+        {
+            buffer[position] = '\0';
+            return buffer;
+        }
+        else
+        {
+            buffer[position] = c;
+        }
+        position++;
+
+        // If we have exceeded the buffer, reallocate.
+        if (position >= bufsize)
+        {
+            bufsize += KRAW_RL_BUFSIZE;
+            buffer = realloc(buffer, bufsize);
+            if (!buffer)
+            {
+                fprintf(stderr, "kraw: allocation error\n");
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+}
 int main(int argc, char **argv)
 {
-  // Load config files, if any.
-  // Run command loop.
-  kraw_loop();
-  return EXIT_SUCCESS;
+    // Load config files, if any.
+    // Run command loop.
+    kraw_loop();
+    return EXIT_SUCCESS;
 }
