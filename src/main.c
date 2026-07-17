@@ -9,6 +9,12 @@ int kraw_cd(char **args);
 int kraw_help(char **args);
 int kraw_exit(char **args);
 
+int kraw_exit(char **args)
+{
+  return 0;
+}
+
+
 // These will be the inbuild functions (Need to add more functions during next updates)
 char *inbuild_str[] = {
     "cd"
