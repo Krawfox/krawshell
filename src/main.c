@@ -90,6 +90,44 @@ char *kraw_read_line(void)
         }
     }
 }
+
+#define KRAW_TOK_BUFSIZE 64
+#define KRAW_TOK_DELIM " \t\r\n\a"
+char **lsh_split_line(char *line)
+{
+    int bufsize = KRAW_TOK_BUFSIZE, position = 0;
+    char **tokens = malloc(bufsize * sizeof(char *));
+    char *token;
+
+    if (!tokens)
+    {
+        fprintf(stderr, "kraw: allocation error\n");
+        exit(EXIT_FAILURE);
+    }
+
+    token = strtok(line, KRAW_TOK_DELIM);
+    while (token != NULL)
+    {
+        tokens[position] = token;
+        position++;
+
+        if (position >= bufsize)
+        {
+            bufsize += KRAW_TOK_BUFSIZE;
+            tokens = realloc(tokens, bufsize * sizeof(char *));
+            if (!tokens)
+            {
+                fprintf(stderr, "kraw: allocation error\n");
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        token = strtok(NULL, KRAW_TOK_DELIM);
+    }
+    tokens[position] = NULL;
+    return tokens;
+}
+
 int main(int argc, char **argv)
 {
     // Load config files, if any.
