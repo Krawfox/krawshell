@@ -58,6 +58,13 @@ void kraw_loop(void)
         printf("Kraw: ");
         fflush(stdout);
 
-        
+        line = kraw_read_line();
+        args = kraw_split_line(line);
+
+        status = kraw_execute(args);
+
+        free(args);
+        free(line);
+
     } while (status);
 }
