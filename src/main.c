@@ -89,11 +89,28 @@ char *kraw_read_line(void)
     while (1)
     {
         /* code */
-        c = getchar();
+         c = getchar();
 
         if (c == EOF || c = '\n')
         {
             buffer[position] = '\0';
+        }
+        else 
+        {
+            buffer[position] =c;
+        }
+        position++;
+
+        if (position >= bufsize)
+        {
+            bufsize += KRAW_RL_BUFSIZE;
+            buffer = realloc(buffer, sizeof(char) *bufsize);
+
+            if(!buffer)
+            {
+                fprintf(stderr, "kraw: allocation error\n");
+                exit(EXIT_FAILURE);
+            }
         }
     }
     
