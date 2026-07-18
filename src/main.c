@@ -68,3 +68,34 @@ void kraw_loop(void)
 
     } while (status);
 }
+
+// Next part Is Reading the stuff
+
+#define KRAW_RL_BUFSIZE 1024
+
+char *kraw_read_line(void)
+{
+    int bufsize = KRAW_RL_BUFSIZE;
+    int position = 0;
+    char *buffer = malloc(sizeof(char)* bufsize);
+    int c;
+
+    if (!buffer)
+    {
+        fprintf(stderr, "kraw: allocation error\n");
+        exit(EXIT_FAILURE);
+    }
+
+    while (1)
+    {
+        /* code */
+        c = getchar();
+
+        if (c == EOF || c = '\n')
+        {
+            buffer[position] = '\0';
+        }
+    }
+    
+    
+}
