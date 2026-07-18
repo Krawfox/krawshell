@@ -91,7 +91,7 @@ char *kraw_read_line(void)
         /* code */
          c = getchar();
 
-        if (c == EOF || c = '\n')
+        if (c == EOF || c =='\n')
         {
             buffer[position] = '\0';
         }
@@ -114,5 +114,23 @@ char *kraw_read_line(void)
         }
     }
     
+    // Let's split some lines
+
+    #define KRAW_TOK_BUFSIZE 64
+    #define KRAW_TOK_DELIM " \t\r\n\a"
+
+    char **kraw_split_line(char *line)
+    {
+        int bufsize = KRAW_TOK_BUFSIZE;
+        int position = 0;
+
+        char **tokens = malloc(bufsize *sizeof(char *));
+        char *token;
+
+        if (!tokens)
+        {
+            fprintf(stderr, "kraw: allocation error\n");
+        }
+    }
     
 }
