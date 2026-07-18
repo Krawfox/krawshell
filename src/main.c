@@ -77,7 +77,7 @@ char *kraw_read_line(void)
 {
     int bufsize = KRAW_RL_BUFSIZE;
     int position = 0;
-    char *buffer = malloc(sizeof(char)* bufsize);
+    char *buffer = malloc(sizeof(char) * bufsize);
     int c;
 
     if (!buffer)
@@ -89,48 +89,73 @@ char *kraw_read_line(void)
     while (1)
     {
         /* code */
-         c = getchar();
+        c = getchar();
 
-        if (c == EOF || c =='\n')
+        if (c == EOF || c == '\n')
         {
             buffer[position] = '\0';
         }
-        else 
+        else
         {
-            buffer[position] =c;
+            buffer[position] = c;
         }
         position++;
 
         if (position >= bufsize)
         {
             bufsize += KRAW_RL_BUFSIZE;
-            buffer = realloc(buffer, sizeof(char) *bufsize);
+            buffer = realloc(buffer, sizeof(char) * bufsize);
 
-            if(!buffer)
+            if (!buffer)
             {
                 fprintf(stderr, "kraw: allocation error\n");
                 exit(EXIT_FAILURE);
             }
         }
     }
-    
-    // Let's split some lines
+}
 
-    #define KRAW_TOK_BUFSIZE 64
-    #define KRAW_TOK_DELIM " \t\r\n\a"
+// Let's split some lines
 
-    char **kraw_split_line(char *line)
+#define KRAW_TOK_BUFSIZE 64
+#define KRAW_TOK_DELIM " \t\r\n\a"
+
+char **kraw_split_line(char *line)
+{
+    int bufsize = KRAW_TOK_BUFSIZE;
+    int position = 0;
+
+    char **tokens = malloc(bufsize * sizeof(char *));
+    char *token;
+
+    if (!tokens)
     {
-        int bufsize = KRAW_TOK_BUFSIZE;
-        int position = 0;
-
-        char **tokens = malloc(bufsize *sizeof(char *));
-        char *token;
-
-        if (!tokens)
-        {
-            fprintf(stderr, "kraw: allocation error\n");
-        }
+        fprintf(stderr, "kraw: allocation error\n");
+        exit(EXIT_FAILURE);
     }
-    
+
+    token = strtok(line, KRAW_TOK_DELIM);
+
+    while (token!= NULL)
+    {
+        /* code */
+        tokens[position] = token;
+        position++;
+
+        if (position >= bufsize)
+        {
+            bufsize += KRAW_TOK_BUFSIZE;
+            tokens = realloc(tokens, bufsize * sizeof(char *));
+
+            if (!tokens)
+            {
+                fprintf (stderr, "kraw: allocation error \n");
+                exit(EXIT_FAILURE);
+            }
+        }
+        token = strtok(NULL, KRAW_TOK_DELIM);
+    }
+
+    tokens[position] = NULL;
+    return tokens;
 }
