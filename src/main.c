@@ -10,7 +10,7 @@
 // : function prototype
 // Build In Commands
 int kraw_cd(char **args);
-int kraw_help(char **args);
+// int kraw_help(char **args);
 int kraw_exit(char **args);
 
 // Shell Functions
@@ -38,7 +38,7 @@ char *builtin_str[] =
 
 int (*builtin_func[])(char **) = {
     kraw_cd,
-    kraw_help,
+    // kraw_help,
     kraw_exit};
 
 int kraw_num_builtins(void)
@@ -94,6 +94,7 @@ char *kraw_read_line(void)
         if (c == EOF || c == '\n')
         {
             buffer[position] = '\0';
+            return buffer;
         }
         else
         {
