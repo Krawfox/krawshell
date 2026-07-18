@@ -136,7 +136,7 @@ char **kraw_split_line(char *line)
 
     token = strtok(line, KRAW_TOK_DELIM);
 
-    while (token!= NULL)
+    while (token != NULL)
     {
         /* code */
         tokens[position] = token;
@@ -149,7 +149,7 @@ char **kraw_split_line(char *line)
 
             if (!tokens)
             {
-                fprintf (stderr, "kraw: allocation error \n");
+                fprintf(stderr, "kraw: allocation error \n");
                 exit(EXIT_FAILURE);
             }
         }
@@ -160,17 +160,17 @@ char **kraw_split_line(char *line)
     return tokens;
 }
 
-// THIS IS THE FEATURES YOU WILL BE USING 
+// THIS IS THE FEATURES YOU WILL BE USING
 
 int kraw_cd(char **args)
 {
-    if (args[1]==NULL)
+    if (args[1] == NULL)
     {
         fprintf(stderr, "kraw: expected argument to \"cd\"\n");
     }
     else
     {
-        if(chdir(args[1]) != 0)
+        if (chdir(args[1]) != 0)
         {
             perror("kraw");
         }
@@ -178,10 +178,55 @@ int kraw_cd(char **args)
     return 1;
 }
 
-// exit 
+// exit
 
 int kraw_exit(char **args)
 {
     (void)args;
     return 0;
+}
+
+int kraw_launch(char **args)
+{
+    pid_t pid;
+    int status;
+
+    pid = fork();
+
+    if (pid == 0)
+    {
+        if (execvp(args[0], args) == -1)
+        {
+            perror("kraw");
+        }
+        exit(EXIT_FAILURE);
+    }
+    else if (pid < 0)
+    {
+        perror("kraw");
+    }
+    else
+    {
+        do
+        {
+            waitpid(pid, &status, WUNTRACED);
+        }while (!WIFEXITED(status) && !WIFSIGNALED(status));
+    }
+    return 1;
+}
+
+int kraw_execute(char **args)
+{
+    if (args[0] == NULL)
+    {
+        return 1;
+    }
+    for (int i =0; i<kraw_num_builtins(); i++ )
+    {
+            if (strcmp(args[0], builtin_str[i]) == 0)
+            {
+                return builtin_func[1](args);
+            }
+    }
+    return kraw_launch(args);
 }
