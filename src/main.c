@@ -7,7 +7,7 @@
 
 // Initializing Every Single Function That will be on the Shelly
 
-// Build In Commands :Kraw's 
+// Build In Commands : function prototype
 int kraw_cd(char **args);
 int kraw_ls(char **args);
 int kraw_exit(char **args);
@@ -19,5 +19,14 @@ char **kraw_split_line(char *line);
 int kraw_launch(char **args);
 int kraw_execute(char **args);
 int kraw_num_builtins(void);
+
+
+// main function that works 
+int main(void)
+{
+    kraw_loop();
+    return EXIT_SUCCESS;
+} 
+
 
 
