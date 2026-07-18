@@ -159,3 +159,29 @@ char **kraw_split_line(char *line)
     tokens[position] = NULL;
     return tokens;
 }
+
+// THIS IS THE FEATURES YOU WILL BE USING 
+
+int kraw_cd(char **args)
+{
+    if (args[1]==NULL)
+    {
+        fprintf(stderr, "kraw: expected argument to \"cd\"\n");
+    }
+    else
+    {
+        if(chdir(args[1]) != 0)
+        {
+            perror("kraw");
+        }
+    }
+    return 1;
+}
+
+// exit 
+
+int kraw_exit(char **args)
+{
+    (void)args;
+    return 0;
+}
