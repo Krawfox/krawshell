@@ -12,6 +12,7 @@
 int kraw_cd(char **args);
 // int kraw_help(char **args);
 int kraw_exit(char **args);
+int kraw_pwd(char **args);
 
 // Shell Functions
 void kraw_loop(void);
@@ -33,13 +34,15 @@ int main(void)
 char *builtin_str[] =
     {
         "cd",
-        "help",
-        "exit"};
+        // "help",
+        "exit",
+        "pwd"};
 
 int (*builtin_func[])(char **) = {
     kraw_cd,
     // kraw_help,
-    kraw_exit};
+    kraw_exit,
+    kraw_pwd};
 
 int kraw_num_builtins(void)
 {
@@ -163,6 +166,8 @@ char **kraw_split_line(char *line)
 
 // THIS IS THE FEATURES YOU WILL BE USING
 
+// THis thing will change the directories
+
 int kraw_cd(char **args)
 {
     if (args[1] == NULL)
@@ -179,13 +184,30 @@ int kraw_cd(char **args)
     return 1;
 }
 
-// exit
+int kraw_pwd(char **args)
+{
+    (void)args;
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
+    {
+        printf("%s\n", cwd);
+    }
+    else
+    {
+        perror("kraw");
+    }
+
+    return 1;
+}
+// exit the terminal
 
 int kraw_exit(char **args)
 {
     (void)args;
     return 0;
 }
+
+// Launch Apps
 
 int kraw_launch(char **args)
 {
@@ -211,7 +233,7 @@ int kraw_launch(char **args)
         do
         {
             waitpid(pid, &status, WUNTRACED);
-        }while (!WIFEXITED(status) && !WIFSIGNALED(status));
+        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
     return 1;
 }
@@ -222,12 +244,12 @@ int kraw_execute(char **args)
     {
         return 1;
     }
-    for (int i =0; i<kraw_num_builtins(); i++ )
+    for (int i = 0; i < kraw_num_builtins(); i++)
     {
-            if (strcmp(args[0], builtin_str[i]) == 0)
-            {
-                return builtin_func[1](args);
-            }
+        if (strcmp(args[0], builtin_str[i]) == 0)
+        {
+            return builtin_func[i](args);
+        }
     }
     return kraw_launch(args);
 }
