@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <time.h>
 // #include "ascii.h"
 
 // Initializing Every Single Function That will be on the Shelly
@@ -19,6 +20,7 @@ int kraw_cat(char **args);
 int kraw_penguin(char **args);
 int kraw_falcon(char **args);
 int kraw_calc(char **args);
+int kraw_roast(char **args);
 
 // Shell Functions
 void kraw_loop(void);
@@ -31,6 +33,7 @@ int kraw_num_builtins(void);
 // main function that works
 int main(void)
 {
+    srand(time(NULL));
     kraw_loop();
     return EXIT_SUCCESS;
 }
@@ -46,7 +49,8 @@ char *builtin_str[] = {
     "fox",
     "penguin",
     "falcon",
-    "calc"
+    "calc",
+    "roast"
 };
 
 int (*builtin_func[])(char **) = {
@@ -57,7 +61,8 @@ int (*builtin_func[])(char **) = {
     kraw_fox,
     kraw_penguin,
     kraw_falcon,
-    kraw_calc
+    kraw_calc,
+    kraw_roast
 };
 
 int kraw_num_builtins(void)
@@ -256,6 +261,7 @@ int kraw_launch(char **args)
 // External Code
 #include "ascii.c"
 #include "calc.c"
+#include "roast.c"
 
 int kraw_execute(char **args)
 {
