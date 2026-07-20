@@ -22,7 +22,7 @@ int kraw_falcon(char **args);
 int kraw_calc(char **args);
 int kraw_roast(char **args);
 int kraw_dice(char **args);
-
+int kraw_coin_flip(char **args);
 // Shell Functions
 void kraw_loop(void);
 char *kraw_read_line(void);
@@ -52,7 +52,8 @@ char *builtin_str[] = {
     "falcon",
     "calc",
     "roast",
-    "dice"
+    "dice",
+    "coin"
 };
 
 int (*builtin_func[])(char **) = {
@@ -65,7 +66,8 @@ int (*builtin_func[])(char **) = {
     kraw_falcon,
     kraw_calc,
     kraw_roast,
-    kraw_dice
+    kraw_dice,
+    kraw_coin_flip
 };
 
 int kraw_num_builtins(void)
@@ -266,6 +268,7 @@ int kraw_launch(char **args)
 #include "calc.c"
 #include "roast.c"
 #include "dice.c"
+#include "coin_flip.c"
 
 int kraw_execute(char **args)
 {
