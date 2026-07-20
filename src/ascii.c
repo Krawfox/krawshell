@@ -150,3 +150,47 @@ int kraw_falcon(char **args)
     );
     return 1;
 }
+
+int kraw_alchemize (char **args)
+{
+    (void)args;
+    printf(
+"                                        \n" 
+"               ,zvvuunnu.               \n" 
+"              LJvvvvuunnnr              \n" 
+"              xxxrxrrt!!!!              \n" 
+"              uxxxxrrtt!!!d             \n" 
+"            .J,rrxxrrt!!!.FzW           \n"  
+"            .rxwoMpmLUYvxIITW           \n" 
+"              .,;xnxxll:..              \n" 
+"             W nCzcvffTTtn              \n" 
+"             :IIT;;;::::;XC             \n" 
+"          ::F..t!!lIII:.,.              \n" 
+"        F;F, Mk,,,jjFl,,.UM             \n" 
+"       ,lT,  jkmMwQCJUUrjUT             \n" 
+"    ,.M:;F    LdMmQCJUUUrU              \n" 
+"    :nu:     awMbQCJJUUUrjU             \n"  
+"           dQwMMmLCJJUUYXFjjX           \n"  
+"         kj,pbl;;;;;;;;;;;;,,;c J       \n" 
+"      TC;;xbbi;;;;;;;;;;;;:;;,,,irC     \n" 
+"     C;;;bbX;;;;;;;;;;;::;:::;:,,,c     \n" 
+"   ,;;;dbbi;iQqmqmCJuxrrrrrl::::,,,, W  \n" 
+"   i;;bbbi;;;;;;;;;;;;:::::::::::,,,,   \n" 
+"  q;;Qbbi;;;;;;;;;;;;:;;;;:::::;::,,,n  \n" 
+" ;;;;ddb;;;;;;;;;;;;;;:;::::::::::,,,,  \n" 
+" m;;;db;;;;;;;;;;;;;::::::::::::::,,,,:W\n" 
+" m;;;;b;;;;;;;;;;;;:::::::::::::::,,,,. \n" 
+" .;;;;;;;;;;;;;;;;::::::::::::::;:,,,,  \n" 
+" .m;;;;;;;;;;;;;;;;::::::::::::;;,,,,rh \n" 
+"  ,:;;;;;;;;;;;;;:;::::::::::;;;,,,,,   \n" 
+"   fX .;;;;;;;;:;;:::::::::::;;,, l: M  \n" 
+"   ,fjjjod,    ozxcr.      tTl;;;.iw    \n" 
+"    vt,uF;FFfTIv ddII!liii;;;.;,::t     \n" 
+"     !vtxxji;Tp IlIII,l;;;,i!!f!l.      \n" 
+"      xiuz:r,tm lIIII,Iiii!lt,l.llo     \n" 
+"      !u:u::tt;j,;I::;li;,t!;..I;I      \n" 
+"        ttt!!tTiFc  !:ltI:;;;:; o       \n" 
+"           q.  .I;;;;;;.    M           \n" 
+"                                        \n" );
+return 1;
+}
