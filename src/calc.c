@@ -6,20 +6,20 @@ int kraw_calc(char **args)
         printf("Usage: calc <num1> <operator> <num2>\n");
         return 1;
     }
-    int num1 = atoi(args[1]);
-    int num2 = atoi(args[3]);
-    int op = args[2][0];
+    double num1 = atof(args[1]);
+    double num2 = atof(args[3]);
+    char op = args[2][0];
 
     switch (op)
     {
     case '+':
-        printf("%d\n", num1 + num2);
+        printf("Sum Of Numbers : %g\n", num1 + num2);
         break;
     case '-':
-        printf("%d\n", num1 - num2);
+        printf("Difference Of Numbers : %g\n", num1 - num2);
         break;
     case '*':
-        printf("%d\n", num1 * num2);
+        printf("Product Of Numbers : %g\n", num1 * num2);
         break;
     case '/':
         if (num2 == 0)
@@ -28,7 +28,7 @@ int kraw_calc(char **args)
         }
         else
         {
-            printf("%d\n", num1 / num2);
+            printf("Division Between Numbers : %g\n", num1 / num2);
         }
         break;
 
