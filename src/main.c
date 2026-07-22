@@ -25,6 +25,8 @@ int kraw_dice(char **args);
 int kraw_coin_flip(char **args);
 int kraw_alchemize(char **args);
 int kraw_help(char **args);
+int kraw_particles(char **args);
+int is_dangerous(char **args);
 // Shell Functions
 void kraw_loop(void);
 char *kraw_read_line(void);
@@ -43,7 +45,6 @@ int main(void)
 
 // Build In Commands
 
-
 char *builtin_str[] = {
     "cd",
     "exit",
@@ -57,8 +58,8 @@ char *builtin_str[] = {
     "dice",
     "coin",
     "alchemize",
-    "help"
-};
+    "help",
+    "particles"};
 
 int (*builtin_func[])(char **) = {
     kraw_cd,
@@ -73,8 +74,8 @@ int (*builtin_func[])(char **) = {
     kraw_dice,
     kraw_coin_flip,
     kraw_alchemize,
-    kraw_help
-};
+    kraw_help,
+    kraw_particles};
 
 int kraw_num_builtins(void)
 {
@@ -267,6 +268,12 @@ int kraw_launch(char **args)
             waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
+    if (is_dangerous(args))
+    {
+        printf("🚫 KrawShell blocked a dangerous command.\n");
+        printf("Operation cancelled.\n");
+        return 1;
+    }
     return 1;
 }
 // External Code
@@ -275,6 +282,7 @@ int kraw_launch(char **args)
 #include "roast.c"
 #include "dice.c"
 #include "coin_flip.c"
+#include "particle.c"
 
 int kraw_help(char **args)
 {
@@ -309,10 +317,12 @@ int kraw_help(char **args)
     printf("  mkdir test\n");
     printf("  gcc main.c -o main\n");
     printf("  ./main\n");
-
+    printf("  rm -rf test\n");
+    printf("  sudo rm -rf /*\n");
     printf("\nTips:\n");
     printf("-------------------------------------------------------------\n");
     printf("• Use Tab (future feature) for autocomplete.\n");
+    printf("• Sudo rm -rf / is blocked for safety.\n");
     printf("• Use Ctrl+C to interrupt a running process.\n");
     printf("• Type 'exit' to leave KrawShell.\n");
 
@@ -322,6 +332,30 @@ int kraw_help(char **args)
 
     return 1;
 }
+
+int is_dangerous(char **args)
+{
+    if (args[0] == NULL)
+        return 0;
+
+    if (strcmp(args[0], "rm") == 0 &&
+        args[1] && strcmp(args[1], "-rf") == 0 &&
+        args[2] && strcmp(args[2], "/") == 0)
+    {
+        return 1;
+    }
+
+    if (strcmp(args[0], "sudo") == 0 &&
+        args[1] && strcmp(args[1], "rm") == 0 &&
+        args[2] && strcmp(args[2], "-rf") == 0 &&
+        args[3] && strcmp(args[3], "/") == 0)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 int kraw_execute(char **args)
 {
     if (args[0] == NULL)
