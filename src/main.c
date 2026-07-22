@@ -24,6 +24,7 @@ int kraw_roast(char **args);
 int kraw_dice(char **args);
 int kraw_coin_flip(char **args);
 int kraw_alchemize(char **args);
+int kraw_help(char **args);
 // Shell Functions
 void kraw_loop(void);
 char *kraw_read_line(void);
@@ -55,7 +56,8 @@ char *builtin_str[] = {
     "roast",
     "dice",
     "coin",
-    "alchemize"
+    "alchemize",
+    "help"
 };
 
 int (*builtin_func[])(char **) = {
@@ -70,7 +72,8 @@ int (*builtin_func[])(char **) = {
     kraw_roast,
     kraw_dice,
     kraw_coin_flip,
-    kraw_alchemize
+    kraw_alchemize,
+    kraw_help
 };
 
 int kraw_num_builtins(void)
@@ -273,6 +276,52 @@ int kraw_launch(char **args)
 #include "dice.c"
 #include "coin_flip.c"
 
+int kraw_help(char **args)
+{
+    (void)args;
+
+    printf("\n");
+    printf("=============================================================\n");
+    printf("                      KrawShell Help\n");
+    printf("=============================================================\n\n");
+
+    printf("Built-in Commands:\n");
+    printf("-------------------------------------------------------------\n");
+    printf("  cd <dir>        Change the current working directory\n");
+    printf("  pwd             Print the current working directory\n");
+    printf("  exit            Exit KrawShell\n");
+    printf("  help            Display this help menu\n");
+    printf("  fox             Display a fox ASCII art\n");
+    printf("  cat             Display a cat ASCII art\n");
+    printf("  penguin         Display a penguin ASCII art\n");
+    printf("  falcon          Display a falcon ASCII art\n");
+    printf("  dice            Roll a six-sided dice\n");
+    printf("  roast           Print a random programming roast\n");
+    printf("  coin            Flip a coin and display the result\n");
+    printf("  alchemize       Summon the Alchemize's PMIX\n");
+    printf("  calc a op b     Simple calculator (e.g. calc 10 + 2)\n");
+
+    printf("\nExternal Commands:\n");
+    printf("-------------------------------------------------------------\n");
+    printf("You can also run Linux commands directly.\n");
+    printf("Examples:\n");
+    printf("  ls\n");
+    printf("  mkdir test\n");
+    printf("  gcc main.c -o main\n");
+    printf("  ./main\n");
+
+    printf("\nTips:\n");
+    printf("-------------------------------------------------------------\n");
+    printf("• Use Tab (future feature) for autocomplete.\n");
+    printf("• Use Ctrl+C to interrupt a running process.\n");
+    printf("• Type 'exit' to leave KrawShell.\n");
+
+    printf("\nVersion : KrawShell v1.0\n");
+    printf("Author  : Arjun Khanal\n");
+    printf("=============================================================\n\n");
+
+    return 1;
+}
 int kraw_execute(char **args)
 {
     if (args[0] == NULL)

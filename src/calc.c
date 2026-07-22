@@ -31,7 +31,16 @@ int kraw_calc(char **args)
             printf("Division Between Numbers : %g\n", num1 / num2);
         }
         break;
-
+    case '%':
+        if ((int)num2 == 0)
+        {
+            printf("Cannot Divide By Zero \n");
+        }
+        else
+        {
+            printf("Modulus Of Numbers : %d\n", (int)num1 % (int)num2);
+        }
+        break;
     default:
         printf("Unknown operator.\n");
         break;
