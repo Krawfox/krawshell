@@ -308,6 +308,7 @@ int kraw_help(char **args)
     printf("  coin            Flip a coin and display the result\n");
     printf("  alchemize       Summon the Alchemize's PMIX\n");
     printf("  calc a op b     Simple calculator (e.g. calc 10 + 2)\n");
+    printf("  particles       Display a particle simulation\n");
 
     printf("\nExternal Commands:\n");
     printf("-------------------------------------------------------------\n");
