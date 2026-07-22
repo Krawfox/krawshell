@@ -37,6 +37,8 @@
 
 # ALMOST ALL LINUX DISTRO IS SUPPORTED BUT Mac OS not Tested ( May not work probably)
 
+# Setup 
+
 ### Clone
 
 ```bash
@@ -63,6 +65,12 @@ The project belongs to the no internet theme since it is a terminal based shell 
 # Inspiration
 
 Since I need to learn C language so I think why not do a project based learning so I searched up the google and there was a good resource that told to build your own shell so I got the idea from that so I am building this shell for my computer and Ig I might add some automations too.
+
+# Screenshots 
+<img width="1383" height="791" alt="Screenshot 2026-07-22 173438" src="https://github.com/user-attachments/assets/2bd6be09-d0fe-47f1-844f-5ceec62bee4a" />
+<img width="1388" height="797" alt="Screenshot 2026-07-22 173458" src="https://github.com/user-attachments/assets/72cdae99-810a-4cbb-a526-5257e0bf7eb3" />
+
+
 
 ## Author
 
