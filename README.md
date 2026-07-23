@@ -49,7 +49,7 @@ cd krawshell/src
 ### Compile
 
 ```bash
-gcc -Wall -Wextra -std=c11 -o kraw main.c
+ gcc main.c -o kraw
 ```
 
 ### Run
